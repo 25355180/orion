@@ -1011,7 +1011,7 @@ class UIScene extends Phaser.Scene {
 
     update() {
         if (this.lives <= 0) {
-            this.gameTimer.remove(true);
+            this.gameTimer.remove(false);
             this.scene.switch('gameOver');
             this.scene.stop('UIScene');
         }
