@@ -18,7 +18,6 @@ class startScene extends Phaser.Scene {
         this,this.titleSong.loop = true;
 //loops the title music 
 
-
     }
     update(){
         if (this.cursors.space.isDown){
@@ -49,12 +48,13 @@ class GamesDevCW2 extends Phaser.Scene{
         this.lives = 1;
 //sets variables
     }
-    //add functions here
+
 //game config
 
 preload (){
     //this.load.image('<KEY>', '<path to image>');
 // this.load.spritesheet('<KEY>', '<path to spritesheet>', {frameWidth: <WIDTH>, frameHeight: <HEIGHT>});
+//preload assets
     this.load.spritesheet('orion', 'orion.png', {frameWidth: 32, frameHeight:33});
     this.load.image('background', 'space.png');
     this.load.image('keycard', 'key.png');
