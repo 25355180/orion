@@ -2,25 +2,27 @@ class startScene extends Phaser.Scene {
     constructor(){
         super({ key: 'startScene', active: true });
     }
-
+//this is the start scene
+//preload loads all the game assets
     preload(){
         this.load.image('titleScreen', 'titleScreen.png');
         this.load.audio('titleSong', 'titleSong.mp3');
     }
     create(){
         this.cursors=this.input.keyboard.createCursorKeys();
+        //creates keyboard input
         this.add.image(600, 300, 'titleScreen').setScale(0.9);
         this.text= this.add.text(300, 400, 'HIT SPACE TO START!', { fill: '#B5E61D' }).setScale(2);
         this.titleSong = this.sound.add('titleSong');
         this.titleSong.play();
         this,this.titleSong.loop = true;
-
-
+//loops the title music 
 
     }
     update(){
         if (this.cursors.space.isDown){
             this.level1();
+            //switches scenes when space is pressed
         }
     }
     level1(GameScene){
@@ -29,6 +31,7 @@ class startScene extends Phaser.Scene {
        // this.scene.stop('startScene');
         this.titleSong.pause();
         this,this.titleSong.loop = false;
+        //pauses the start scene song
         //this.scene.switch('GameScene');
         
     };
@@ -43,14 +46,15 @@ class GamesDevCW2 extends Phaser.Scene{
         var anims=anims;
         this.score = 0;
         this.lives = 1;
-
+//sets variables
     }
-    //add functions here
+
 //game config
 
 preload (){
     //this.load.image('<KEY>', '<path to image>');
 // this.load.spritesheet('<KEY>', '<path to spritesheet>', {frameWidth: <WIDTH>, frameHeight: <HEIGHT>});
+//preload assets
     this.load.spritesheet('orion', 'orion.png', {frameWidth: 32, frameHeight:33});
     this.load.image('background', 'space.png');
     this.load.image('keycard', 'key.png');
@@ -168,8 +172,7 @@ this.levelStart.once('complete', () => {
     this.cam.setZoom(1);
     this.cameras.main.setBounds(0, 0, 1780,600);
     this.cam.startFollow(this.player, false, 50, 50);
-
-
+//sets game camera
 
 
     this.floor = this.physics.add.staticGroup({
@@ -179,6 +182,7 @@ this.levelStart.once('complete', () => {
         setScale:{x:2,y:2},
         setXY: { x: 0, y: 100, stepX: 244 },
     });
+    //group
     this.floorBottom = this.physics.add.staticGroup({
         collideWorldBounds: true,
         key: 'floor',
@@ -419,9 +423,7 @@ this.levelStart.once('complete', () => {
     this.cam.setZoom(1);
     this.cameras.main.setBounds(0, 0, 1780,600);
     this.cam.startFollow(this.player, false, 50, 50);
-
-
-
+//sets game camera
 
     this.floor = this.physics.add.staticGroup({
         collideWorldBounds: true,
@@ -558,7 +560,7 @@ update(){
                 this.alien6.refreshBody();
             }
                 
-
+//makes aliens move around
 
 }
 
@@ -595,9 +597,6 @@ ouch(player, alien1,alien2,alien3)
 {
     this.text= this.add.text(750, 30, 'Ouch!', {fill:'#ffffff'});
     this.scene.get('UIScene').events.emit('takeLife');
-
-
-
 };
 level3(){
     this.scene.switch('level3');
@@ -965,10 +964,10 @@ class UIScene extends Phaser.Scene {
 
     startTimer() {
         this.startTime = new Date();
-        this.totalTime = 120; 
+        this.totalTime = 0; 
         this.timeElapsed = 0;
 
-        this.timerText = this.add.text(this.game.config.width / 2, 100, "02:00", { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5);
+        this.timerText = this.add.text(this.game.config.width / 2, 100, "00:00", { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5);
 
         this.gameTimer = this.time.addEvent({
             delay: 1000,
@@ -977,10 +976,10 @@ class UIScene extends Phaser.Scene {
             loop: true
         });
     }
-
+//timer tutorial from here: https://www.joshmorony.com/how-to-create-an-accurate-timer-for-phaser-games/
     updateTimer() {
         this.timeElapsed++;
-        const remainingTime = this.totalTime - this.timeElapsed;
+        const remainingTime = this.totalTime + this.timeElapsed;
 
         const minutes = Math.floor(remainingTime / 60);
         const seconds = Math.floor(remainingTime % 60);
@@ -1051,7 +1050,7 @@ class finished extends Phaser.Scene {
         this.cursors=this.input.keyboard.createCursorKeys();
         this.add.image(600, 300, 'end').setScale(1.5);
         this.text= this.add.text(100, 400, 'YOU ESCAPED! WELL DONE!', { fill: '#B5E61D' }).setScale(2);
-        this.text= this.add.text(100, 500, 'PRESS SPACE TO PLAY AGAIN!', { fill: '#B5E61D' }).setScale(2);
+        this.text= this.add.text(100, 500, 'PRESS SPACE TO PLAY AGAIN IN HARD MODE!', { fill: '#B5E61D' }).setScale(2);
 
 
 
@@ -1088,5 +1087,3 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-
-
