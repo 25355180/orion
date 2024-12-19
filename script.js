@@ -918,6 +918,7 @@ ouch(player, alien1,alien2,alien3,alien4,alien5,alien6)
 };
 level4(){
     this.scene.switch('finished');
+    this.scene.stop('level3');
 
 };
 }
