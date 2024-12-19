@@ -968,6 +968,11 @@ class UIScene extends Phaser.Scene {
             livesText.setText(`Lives: ${this.lives}`);
         }, this);
 
+        ourGame.events.on('resetBullets', function () {
+            this.bullets = 0;
+            bulletsText.setText(`Bullets: ${this.bullets}`);
+        }, this);
+
         this.startTimer();
 
     }
@@ -1033,6 +1038,7 @@ class gameOver extends Phaser.Scene {
     update(){
         if (this.cursors.space.isDown){
             this.scene.get('UIScene').events.emit('resetLife');
+            this.scene.get('UIScene').events.emit('resetBullets');
             this.restart();
         }
     }
