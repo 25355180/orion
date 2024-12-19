@@ -172,8 +172,7 @@ this.levelStart.once('complete', () => {
     this.cam.setZoom(1);
     this.cameras.main.setBounds(0, 0, 1780,600);
     this.cam.startFollow(this.player, false, 50, 50);
-
-
+//sets game camera
 
 
     this.floor = this.physics.add.staticGroup({
@@ -183,6 +182,7 @@ this.levelStart.once('complete', () => {
         setScale:{x:2,y:2},
         setXY: { x: 0, y: 100, stepX: 244 },
     });
+    //group
     this.floorBottom = this.physics.add.staticGroup({
         collideWorldBounds: true,
         key: 'floor',
@@ -423,9 +423,7 @@ this.levelStart.once('complete', () => {
     this.cam.setZoom(1);
     this.cameras.main.setBounds(0, 0, 1780,600);
     this.cam.startFollow(this.player, false, 50, 50);
-
-
-
+//sets game camera
 
     this.floor = this.physics.add.staticGroup({
         collideWorldBounds: true,
@@ -562,7 +560,7 @@ update(){
                 this.alien6.refreshBody();
             }
                 
-
+//makes aliens move around
 
 }
 
@@ -969,10 +967,10 @@ class UIScene extends Phaser.Scene {
 
     startTimer() {
         this.startTime = new Date();
-        this.totalTime = 120; 
+        this.totalTime = 0; 
         this.timeElapsed = 0;
 
-        this.timerText = this.add.text(this.game.config.width / 2, 100, "02:00", { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5);
+        this.timerText = this.add.text(this.game.config.width / 2, 100, "00:00", { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5);
 
         this.gameTimer = this.time.addEvent({
             delay: 1000,
@@ -984,7 +982,7 @@ class UIScene extends Phaser.Scene {
 //timer tutorial from here: https://www.joshmorony.com/how-to-create-an-accurate-timer-for-phaser-games/
     updateTimer() {
         this.timeElapsed++;
-        const remainingTime = this.totalTime - this.timeElapsed;
+        const remainingTime = this.totalTime + this.timeElapsed;
 
         const minutes = Math.floor(remainingTime / 60);
         const seconds = Math.floor(remainingTime % 60);
@@ -1055,7 +1053,7 @@ class finished extends Phaser.Scene {
         this.cursors=this.input.keyboard.createCursorKeys();
         this.add.image(600, 300, 'end').setScale(1.5);
         this.text= this.add.text(100, 400, 'YOU ESCAPED! WELL DONE!', { fill: '#B5E61D' }).setScale(2);
-        this.text= this.add.text(100, 500, 'PRESS SPACE TO PLAY AGAIN!', { fill: '#B5E61D' }).setScale(2);
+        this.text= this.add.text(100, 500, 'PRESS SPACE TO PLAY AGAIN IN HARD MODE!', { fill: '#B5E61D' }).setScale(2);
 
 
 
