@@ -944,7 +944,7 @@ class UIScene extends Phaser.Scene {
         }, this);
 
         ourGame.events.on('addBullet', function () {
-            this.score += 100;
+            this.bullets += 10;
             info.setText(`Bullets: ${this.bullets}`);
         }, this);
     
