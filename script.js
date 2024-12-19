@@ -1013,6 +1013,8 @@ class UIScene extends Phaser.Scene {
         if (this.lives <= 0) {
             this.gameTimer.remove(true);
             this.timerText.destroy();
+            this.info.destroy();
+            this.livesText.destroy();
             this.scene.switch('gameOver');
         }
     }
