@@ -597,9 +597,6 @@ ouch(player, alien1,alien2,alien3)
 {
     this.text= this.add.text(750, 30, 'Ouch!', {fill:'#ffffff'});
     this.scene.get('UIScene').events.emit('takeLife');
-
-
-
 };
 level3(){
     this.scene.switch('level3');
