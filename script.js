@@ -299,8 +299,7 @@ ouch(player, alien1,alien2,alien3)
 };
 
 level2(){
-    this.scene.switch('level2');
-    this.level2.active=true;
+    this.scene.start('level2');
 };
 };
 
@@ -601,8 +600,7 @@ ouch(player, alien1,alien2,alien3)
     this.scene.get('UIScene').events.emit('takeLife');
 };
 level3(){
-    this.scene.switch('level3');
-    this.level3.active=true;
+    this.scene.start('level3');
 };
 };
 
