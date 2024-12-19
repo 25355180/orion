@@ -286,6 +286,7 @@ collectRaygun(player, raygun)
     raygun.destroy();
     this.text= this.add.text(450, 30, 'Raygun collected!', {fill:'#ffffff'});
     this.scene.get('UIScene').events.emit('addScore');
+    this.scene.get('UIScene').events.emit('addBullet');
 
 };
 ouch(player, alien1,alien2,alien3)
@@ -589,7 +590,7 @@ collectRaygun(player, raygun)
     raygun.disableBody(true, true);
     raygun.destroy();
     this.text= this.add.text(450, 30, 'Raygun collected!', {fill:'#ffffff'});
-
+    this.scene.get('UIScene').events.emit('addBullet');
     this.scene.get('UIScene').events.emit('addScore');
 
 };
@@ -906,6 +907,7 @@ collectRaygun(player, raygun)
     raygun.destroy();
     this.text= this.add.text(450, 30, 'Raygun collected!', {fill:'#ffffff'});
     this.scene.get('UIScene').events.emit('addScore');
+    this.scene.get('UIScene').events.emit('addBullet');
 
 };
 ouch(player, alien1,alien2,alien3,alien4,alien5,alien6)
@@ -939,6 +941,11 @@ class UIScene extends Phaser.Scene {
         ourGame.events.on('addScore', function () {
             this.score += 100;
             info.setText(`Score: ${this.score}`);
+        }, this);
+
+        ourGame.events.on('addBullet', function () {
+            this.score += 100;
+            info.setText(`Bullets: ${this.bullets}`);
         }, this);
     
         ourGame.events.on('addLife', function () {
