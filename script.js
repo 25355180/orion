@@ -615,14 +615,13 @@ class level3 extends Phaser.Scene{
         var anims=anims;
         this.score = 0;
         this.lives = 1;
+        this.bullets=0;
 
     }
     //add functions here
 //game config
 
 preload (){
-    //this.load.image('<KEY>', '<path to image>');
-// this.load.spritesheet('<KEY>', '<path to spritesheet>', {frameWidth: <WIDTH>, frameHeight: <HEIGHT>});
     this.load.spritesheet('orion', 'orion.png', {frameWidth: 32, frameHeight:33});
     this.load.image('background', 'space.png');
     this.load.image('keycard', 'key.png');
