@@ -1044,7 +1044,7 @@ class gameOver extends Phaser.Scene {
     }
     restart(GameScene){
 
-        this.scene.switch('GameScene');
+        this.scene.start('GameScene');
         this.scene.start('UIScene');
         this.scene.stop('gameOver');
         //this.scene.switch('GameScene');
