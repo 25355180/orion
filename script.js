@@ -313,7 +313,7 @@ class level2 extends Phaser.Scene{
         var anims=anims;
         this.score = 0;
         this.lives = 1;
-
+        this.bullets=0;
     }
 
 preload (){
@@ -946,7 +946,7 @@ class UIScene extends Phaser.Scene {
 
         ourGame.events.on('addBullet', function () {
             this.bullets += 10;
-            info.setText(`Bullets: ${this.bullets}`);
+            bulletsText.setText(`Bullets: ${this.bullets}`);
         }, this);
     
         ourGame.events.on('addLife', function () {
