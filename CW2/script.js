@@ -2,25 +2,28 @@ class startScene extends Phaser.Scene {
     constructor(){
         super({ key: 'startScene', active: true });
     }
-
+//this is the start scene
+//preload loads all the game assets
     preload(){
         this.load.image('titleScreen', 'titleScreen.png');
         this.load.audio('titleSong', 'titleSong.mp3');
     }
     create(){
         this.cursors=this.input.keyboard.createCursorKeys();
+        //creates keyboard input
         this.add.image(600, 300, 'titleScreen').setScale(0.9);
         this.text= this.add.text(300, 400, 'HIT SPACE TO START!', { fill: '#B5E61D' }).setScale(2);
         this.titleSong = this.sound.add('titleSong');
         this.titleSong.play();
         this,this.titleSong.loop = true;
-
+//loops the title music 
 
 
     }
     update(){
         if (this.cursors.space.isDown){
             this.level1();
+            //switches scenes when space is pressed
         }
     }
     level1(GameScene){
@@ -29,6 +32,7 @@ class startScene extends Phaser.Scene {
        // this.scene.stop('startScene');
         this.titleSong.pause();
         this,this.titleSong.loop = false;
+        //pauses the start scene song
         //this.scene.switch('GameScene');
         
     };
@@ -43,7 +47,7 @@ class GamesDevCW2 extends Phaser.Scene{
         var anims=anims;
         this.score = 0;
         this.lives = 1;
-
+//sets variables
     }
     //add functions here
 //game config
@@ -977,7 +981,7 @@ class UIScene extends Phaser.Scene {
             loop: true
         });
     }
-
+//timer tutorial from here: https://www.joshmorony.com/how-to-create-an-accurate-timer-for-phaser-games/
     updateTimer() {
         this.timeElapsed++;
         const remainingTime = this.totalTime - this.timeElapsed;
