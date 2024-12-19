@@ -927,11 +927,13 @@ class UIScene extends Phaser.Scene {
         super({ key: 'UIScene', active: true });
         this.score = 0;
         this.lives = 1;
+        this.bullets=1;
     }
 
     create() {
         const info = this.add.text(10, 10, `Score: ${this.score}`, { fill: '#ffffff' });
         const livesText = this.add.text(150, 10, `Lives: ${this.lives}`, { fill: '#ffffff' });
+        const bulletsText = this.add.text(350, 10, `Bullets: ${this.bullets}`, { fill: '#ffffff' });
         const ourGame = this.scene.get('UIScene');
     
         ourGame.events.on('addScore', function () {
