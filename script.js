@@ -1066,7 +1066,7 @@ class finished extends Phaser.Scene {
         this.add.image(600, 300, 'end').setScale(1.5);
         this.text= this.add.text(100, 400, 'YOU ESCAPED! WELL DONE!', { fill: '#B5E61D' }).setScale(2);
         this.text= this.add.text(100, 500, 'PRESS SPACE TO PLAY AGAIN!', { fill: '#B5E61D' }).setScale(2);
-        this.text= this.add.text(100, 600, 'SCREENSHOT YOUR TIME AND BRAG TO YOUR FRIENDS!', { fill: '#B5E61D' }).setScale(2);
+
 
 
 
