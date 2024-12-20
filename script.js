@@ -1140,8 +1140,7 @@ create() {
     //this.add.image(1780, 60, 'background').setScale(2);
 
     this.keycard=this.physics.add.sprite(535, 375, 'keycard').setScale(2);
-    this.sheild=this.physics.add.sprite(1250, 275, 'sheild').setScale(2);
-    this.raygun=this.physics.add.sprite(1450, 500, 'raygun').setScale(1.5);
+
     this.alien1=this.physics.add.staticSprite(1000, 400, 'alien1').setScale(2);
     this.alien2=this.physics.add.staticSprite(520, 240, 'alien2').setScale(2);
     this.alien3=this.physics.add.staticSprite(1400, 200, 'alien3').setScale(2);
@@ -1360,24 +1359,7 @@ collectkeycard(player, keycard, laser, score)
     this.events.emit('addScore');
 
 };
-collectSheild(player, sheild)
-{
-    sheild.disableBody(true, true);
-    sheild.destroy();
-    this.text= this.add.text(250, 30, 'Sheild collected!', {fill:'#ffffff'});
-    this.scene.get('UIScene').events.emit('addLife');
-    this.scene.get('UIScene').events.emit('addScore');
 
-};
-collectRaygun(player, raygun)
-{
-    raygun.disableBody(true, true);
-    raygun.destroy();
-    this.text= this.add.text(450, 30, 'Raygun collected!', {fill:'#ffffff'});
-    this.scene.get('UIScene').events.emit('addBullet');
-    this.scene.get('UIScene').events.emit('addScore');
-
-};
 ouch(player, alien1,alien2,alien3)
 {
     this.text= this.add.text(750, 30, 'Ouch!', {fill:'#ffffff'});
