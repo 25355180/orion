@@ -1079,7 +1079,7 @@ class finished extends Phaser.Scene {
     }
     restart(GameScene){
 
-        this.scene.start('GameScene');
+        this.scene.start('hard1');
         this.scene.start('UIScene');
         this.scene.stop('finished');
         //this.scene.switch('GameScene');
@@ -1087,13 +1087,315 @@ class finished extends Phaser.Scene {
     };
 }
 
+class hard1 extends Phaser.Scene{
+    constructor(){
+        super({ key: 'level2' });
+        //class variables go here
+        var player= player;
+        var text=text;
+        var anims=anims;
+        this.score = 0;
+        this.lives = 1;
+        this.bullets=0;
+    }
+
+preload (){
+    this.load.spritesheet('orion', 'orion.png', {frameWidth: 32, frameHeight:33});
+    this.load.image('background', 'space.png');
+    this.load.image('keycard', 'key.png');
+    this.load.image('pipeSmallSide', 'rippedPipeSide.png');
+    this.load.image('pipeBigSide', 'bigPipeSide.png');
+    this.load.image('pipeSmallUp', 'rippedPipeUp.png');
+    this.load.image('pipeBigUp', 'bigPipeUp.png');
+    this.load.audio('levelStart', 'levelStart.mp3');
+    this.load.audio('levelLoop', 'levelLoop.mp3');
+    this.load.image('sheild', 'sheild.png');
+    this.load.image('raygun', 'raygun.png');
+    this.load.image('floor', 'floor.png');
+    this.load.image('shipSide', 'shipSide.png');
+    this.load.image('door', 'door.png');
+    this.load.image('laser', 'laser.png');
+    this.load.image('alien1', 'alien1.png');
+    this.load.image('alien2', 'alien2.png');
+    this.load.image('alien3', 'alien3.png');
+    this.load.image('ray', 'ray.png');
+    this.load.image('dead1', 'gameOver.png');
+}
+
+
+create() {
+    this.add.image(50, 60, 'background').setScale(2);
+    this.shipSide = this.physics.add.staticGroup({
+        key: 'shipSide',
+        setScale:{x:2,y:2},
+        repeat: 10,
+        setXY: { x: 50, y: 415, stepX: 300 },
+    });
+    this.shipSide2 = this.physics.add.staticGroup({
+        key: 'shipSide',
+        setScale:{x:2,y:2},
+        repeat: 10,
+        setXY: { x: 50, y: 215, stepX: 300 },
+    });
+    //this.add.image(1780, 60, 'background').setScale(2);
+
+    this.keycard=this.physics.add.sprite(535, 375, 'keycard').setScale(2);
+    this.sheild=this.physics.add.sprite(1250, 275, 'sheild').setScale(2);
+    this.raygun=this.physics.add.sprite(1450, 500, 'raygun').setScale(1.5);
+    this.alien1=this.physics.add.staticSprite(1000, 400, 'alien1').setScale(2);
+    this.alien2=this.physics.add.staticSprite(520, 240, 'alien2').setScale(2);
+    this.alien3=this.physics.add.staticSprite(1400, 200, 'alien3').setScale(2);
+    this.alien4=this.physics.add.staticSprite(1100, 250, 'alien1').setScale(2);
+    this.alien5=this.physics.add.staticSprite(650, 440, 'alien2').setScale(2);
+    this.alien6=this.physics.add.staticSprite(400, 200, 'alien3').setScale(2);
+    this.laser = this.physics.add.staticSprite(1610, 312, 'laser');
+    this.laser1 = this.physics.add.staticSprite(0, 312, 'laser');
+
+    this.player=this.physics.add.sprite(100,450, 'orion').setScale(2);
+    this.player.setCollideWorldBounds(true);
+
+
+    this.player.setGravityY(400);
+
+//audio
+this.levelStart = this.sound.add('levelStart');
+this.levelStart.play();
+
+// Once levelStart finishes, start playing levelLoop
+this.levelStart.once('complete', () => {
+    this.levelLoop = this.sound.add('levelLoop');
+    this.levelLoop.loop = true;
+    this.levelLoop.play();
+});
+
+    this.pipeUp = this.physics.add.staticGroup();
+    this.pipeSmallUp = this.physics.add.staticGroup();
+    this.pipeSmallSide = this.physics.add.staticGroup();
+    this.pipeSide = this.physics.add.staticGroup();
+
+    
+    //big up pipes
+    this.pipeUp.create(500, 350, 'pipeBigUp').setScale(2).refreshBody();
+
+    //big side pipes
+    this.pipeSide.create(700, 380, 'pipeBigSide').setScale(2).refreshBody();
+
+    //small up pipes
+    this.pipeSmallUp.create(200,475,'pipeSmallUp').setScale(2).refreshBody();
+
+    //small side pipes
+    this.pipeSmallSide.create(1300, 300, 'pipeSmallSide').setScale(2).refreshBody();
+
+    //door
+    this.door=this.physics.add.sprite(1700, 320, 'door').setScale(2);
+
+
+    this.cursors=this.input.keyboard.createCursorKeys();
+
+    this.physics.add.overlap(this.player, this.keycard,  this.collectkeycard, null, this);
+    this.physics.add.overlap(this.player, this.sheild,  this.collectSheild, null, this);
+    this.physics.add.overlap(this.player, this.raygun,  this.collectRaygun, null, this);
+    this.physics.add.overlap(this.player, this.alien1,  this.ouch, null, this);
+    this.physics.add.overlap(this.player, this.alien2,  this.ouch, null, this);
+    this.physics.add.overlap(this.player, this.alien3,  this.ouch, null, this);
+    this.physics.add.overlap(this.player, this.alien4,  this.ouch, null, this);
+    this.physics.add.overlap(this.player, this.alien5,  this.ouch, null, this);
+    this.physics.add.overlap(this.player, this.alien6,  this.ouch, null, this);
+    this.physics.add.overlap(this.player, this.laser,  this.ouch, null, this);
+    this.physics.add.overlap(this.player, this.door, this.level3, null, this);
+    // Camera
+    this.cam = this.cameras.main.setSize(800, 600);
+    this.cam.setZoom(1);
+    this.cameras.main.setBounds(0, 0, 1780,600);
+    this.cam.startFollow(this.player, false, 50, 50);
+//sets game camera
+
+    this.floor = this.physics.add.staticGroup({
+        collideWorldBounds: true,
+        key: 'floor',
+        repeat: 10,
+        setScale:{x:2,y:2},
+        setXY: { x: 0, y: 100, stepX: 244 },
+    });
+    this.floorBottom = this.physics.add.staticGroup({
+        collideWorldBounds: true,
+        key: 'floor',
+        repeat: 10,
+        setScale:{x:2,y:2},
+        setXY: { x: 0, y: 530, stepX: 244 },
+    });
+
+
+    this.anims.create({
+        key:'right',
+        frames: this.anims.generateFrameNumbers('orion',{start:0, end:11}),
+        frameRate:10,
+        repeat:-1
+    });
+
+    this.anims.create({
+        key:'jump',
+        frames: this.anims.generateFrameNumbers('orion',{start:8, end:8}),
+        frameRate:20,
+        repeat:-1
+    });
+
+    this.anims.create({
+        key:'left',
+        frames: this.anims.generateFrameNumbers('orion',{start:13, end:21}),
+        frameRate:10,
+        repeat:-1
+    });
+    this.anims.create({
+        key:'idle',
+        frames: this.anims.generateFrameNumbers('orion',{start:12, end:12}),
+        frameRate:10,
+        repeat:-1
+    });
+
+}
+update(){
+    this.physics.add.collider(this.player, this.keycard);
+    this.physics.add.collider(this.player, this.sheild);
+    this.physics.add.collider(this.player, this.raygun);
+    this.physics.add.collider(this.player, this.pipeUp);
+    this.physics.add.collider(this.player, this.pipeSide);
+    this.physics.add.collider(this.player, this.pipeSmallUp);
+    this.physics.add.collider(this.player, this.pipeSmallSide);
+    this.physics.add.collider(this.player, this.floor);
+    this.physics.add.overlap(this.player, this.door);
+    this.physics.add.collider(this.player, this.floorBottom);
+    this.physics.add.collider(this.player, this.laser);
+    this.physics.add.collider(this.player, this.alien1);
+    this.physics.add.collider(this.player, this.alien2);
+    this.physics.add.collider(this.player, this.alien3);
+    this.physics.add.collider(this.player, this.alien4);
+    this.physics.add.collider(this.player, this.alien5);
+    this.physics.add.collider(this.player, this.alien6);
+    this.physics.add.collider(this.player, this.laser1);
+
+    if (this.cursors.left.isDown){
+        this.player.setVelocityX(-160);
+        this.player.anims.play('left',true);
+    }
+    else if (this.cursors.right.isDown){
+        this.player.setVelocityX(160);
+        this.player.anims.play('right',true);
+
+    }
+    else if (this.cursors.down.isDown){
+        this.player.setVelocityY(260);
+        this.player.anims.play('jump',true);
+
+    }
+    else{
+        this.player.setVelocityX(0);
+        this.player.setVelocityY(-400);
+        this.player.anims.play('idle');
+    }
+
+
+
+    this.alien1.x += 3;
+    this.alien1.refreshBody();
+
+    if (this.alien1.x > 1650)
+        {
+            this.alien1.x = -50;
+            this.alien1.refreshBody();
+        }
+        this.alien2.x += 3;
+        this.alien2.refreshBody();
+
+    if (this.alien2.x > 1550)
+        {
+            this.alien2.x = -30;
+            this.alien2.refreshBody();
+        }
+        this.alien3.y += 3;
+        this.alien3.refreshBody();
+
+        if (this.alien3.y > 500)
+            {
+                this.alien3.y = -50;
+                this.alien3.refreshBody();
+            }
+        this.alien4.y += 3;
+        this.alien4.refreshBody();
+
+        if (this.alien4.y > 550)
+            {
+                this.alien4.y = -50;
+                this.alien4.refreshBody();
+            }
+        this.alien5.y += 3;
+        this.alien5.refreshBody();
+
+        if (this.alien5.y > 300)
+            {
+                this.alien5.y = -30;
+                this.alien5.refreshBody();
+            }
+        this.alien6.x += 3;
+        this.alien6.refreshBody();
+
+        if (this.alien6.x > 350)
+            {
+                this.alien6.x = -350;
+                this.alien6.refreshBody();
+            }
+                
+//makes aliens move around
+
+}
+
+collectkeycard(player, keycard, laser, score)
+{
+    keycard.disableBody(true, true);
+    keycard.destroy();
+    this.collect=true;
+    this.text= this.add.text(30, 30, 'Keycard collected!', {fill:'#ffffff'});
+    this. laser. setPosition (0, 312); 
+    this.laser.refreshBody();
+    this.events.emit('addScore');
+
+};
+collectSheild(player, sheild)
+{
+    sheild.disableBody(true, true);
+    sheild.destroy();
+    this.text= this.add.text(250, 30, 'Sheild collected!', {fill:'#ffffff'});
+    this.scene.get('UIScene').events.emit('addLife');
+    this.scene.get('UIScene').events.emit('addScore');
+
+};
+collectRaygun(player, raygun)
+{
+    raygun.disableBody(true, true);
+    raygun.destroy();
+    this.text= this.add.text(450, 30, 'Raygun collected!', {fill:'#ffffff'});
+    this.scene.get('UIScene').events.emit('addBullet');
+    this.scene.get('UIScene').events.emit('addScore');
+
+};
+ouch(player, alien1,alien2,alien3)
+{
+    this.text= this.add.text(750, 30, 'Ouch!', {fill:'#ffffff'});
+    this.scene.get('UIScene').events.emit('takeLife');
+};
+level3(){
+    this.scene.start('level3');
+};
+};
+
+
 const config = {
     type:Phaser.AUTO,
     width:1800,
     parent: "game-container",
     height:600,
     transparency: true,
-    scene: [startScene,GamesDevCW2, level2, UIScene,level3,gameOver,finished],
+    scene: [startScene,GamesDevCW2, level2, UIScene,level3,gameOver,finished,hard1],
     physics:{
         default: 'arcade',
         arcade:{
