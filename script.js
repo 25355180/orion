@@ -1089,7 +1089,7 @@ class finished extends Phaser.Scene {
 
 class hard1 extends Phaser.Scene{
     constructor(){
-        super({ key: 'level2' });
+        super({ key: 'hard1' });
         //class variables go here
         var player= player;
         var text=text;
@@ -1384,7 +1384,7 @@ ouch(player, alien1,alien2,alien3)
     this.scene.get('UIScene').events.emit('takeLife');
 };
 level3(){
-    this.scene.start('level3');
+    this.scene.start('finished');
 };
 };
 
