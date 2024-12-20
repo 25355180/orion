@@ -14,7 +14,7 @@ class startScene extends Phaser.Scene {
         this.add.image(600, 300, 'titleScreen').setScale(0.9);
         this.text= this.add.text(300, 400, 'HIT SPACE TO START!', { fill: '#B5E61D' }).setScale(2);
         this.text= this.add.text(300, 500, 'USE LEFT, RIGHT AND DOWN TO MOVE!', { fill: '#B5E61D' }).setScale(2);
-        this.text= this.add.text(300, 600, 'GRAVITY WILL DO THE REST!', { fill: '#B5E61D' }).setScale(2);
+        this.text= this.add.text(300, 550, 'GRAVITY WILL DO THE REST!', { fill: '#B5E61D' }).setScale(2);
         this.titleSong = this.sound.add('titleSong');
         this.titleSong.play();
         this,this.titleSong.loop = true;
