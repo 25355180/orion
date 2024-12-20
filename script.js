@@ -111,7 +111,7 @@ create() {
     this.scene.get('UIScene').events.emit('resetLife');
     this.player=this.physics.add.sprite(100,450, 'orion').setScale(2);
     this.player.setCollideWorldBounds(true);
-    this.text= this.add.text(200, 100, 'I need to collect the keycards to open the door...', {fill:'#ffffff'});
+    this.text= this.add.text(200, 600, 'I need to collect the keycards to open the door...', {fill:'#ffffff'});
 
     this.player.setGravityY(400);
 
