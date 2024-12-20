@@ -1109,8 +1109,6 @@ preload (){
     this.load.image('pipeBigUp', 'bigPipeUp.png');
     this.load.audio('levelStart', 'levelStart.mp3');
     this.load.audio('levelLoop', 'levelLoop.mp3');
-    this.load.image('sheild', 'sheild.png');
-    this.load.image('raygun', 'raygun.png');
     this.load.image('floor', 'floor.png');
     this.load.image('shipSide', 'shipSide.png');
     this.load.image('door', 'door.png');
