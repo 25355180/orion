@@ -1,36 +1,13 @@
 class startScene extends Phaser.Scene {
     constructor(){
         super({ key: 'startScene', active: true });
-        this.cometConfig;
-        this.cometEmitter;
-        this.count;
 
-        this.cometConfig={
-            speed:500,
-            lifespan:600,
-            angle: {min: 0, max: 360 },
-            scale:{start:0.3,end:0.8},
-            blendMode:'ADD',
-            frequency:12,
-            setScale:2,
-            tint: [ 0xffff00, 0xff0f00, 0x00ff00, 0x0ff0ff ],
-
-            emitZone:{
-                type:'random',
-                source:new Phaser.Geom.Line(0,0,1800,600),
-
-
-                
-            }
-        };
     }
 //this is the start scene
 //preload loads all the game assets
     preload(){
         this.load.image('titleScreen', 'titleScreen.png');
         this.load.audio('titleSong', 'titleSong.mp3');
-        this.load.image('comet', 'comet_particle.png');
-        this.load.image('comet2', 'comet_particle2.png');
     }
     create(){
         this.cursors=this.input.keyboard.createCursorKeys();
@@ -42,7 +19,6 @@ class startScene extends Phaser.Scene {
         this.titleSong = this.sound.add('titleSong');
         this.titleSong.play();
         this,this.titleSong.loop = true;
-        this.cometEmitter=this.add.particles('comet').createEmitter(this.cometConfig).start();
         
 //loops the title music 
 
@@ -76,6 +52,25 @@ class GamesDevCW2 extends Phaser.Scene{
         this.score = 0;
         this.lives = 1;
         this.bullets=0;
+        this.cometConfig;
+        this.cometEmitter;
+        this.count;
+
+        this.cometConfig={
+            speed:500,
+            lifespan:600,
+            angle: {min: 0, max: 360 },
+            scale:{start:0.3,end:0.8},
+            blendMode:'ADD',
+            frequency:12,
+            setScale:2,
+            tint: [ 0xffff00, 0xff0f00, 0x00ff00, 0x0ff0ff ],
+
+            emitZone:{
+                type:'random',
+                source:new Phaser.Geom.Line(0,0,1800,600),
+            }
+        };
 //sets variables
     }
 
@@ -105,11 +100,12 @@ preload (){
     this.load.image('alien3', 'alien3.png');
     this.load.image('dead1', 'gameOver.png');
     this.load.image('ray', 'ray.png');
+    this.load.image('comet', 'comet_particle.png');
 }
 
 
 create() {
-
+    this.cometEmitter=this.add.particles('comet').createEmitter(this.cometConfig).start();
     this.scene.get('UIScene').events.emit('resetLife');
     this.add.image(50, 60, 'background').setScale(2);
     this.shipSide = this.physics.add.staticGroup({
