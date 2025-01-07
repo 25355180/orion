@@ -28,6 +28,7 @@ class startScene extends Phaser.Scene {
         this.load.image('titleScreen', 'titleScreen.png');
         this.load.audio('titleSong', 'titleSong.mp3');
         this.load.image('comet', 'comet_particle.png');
+        this.load.image('comet2', 'comet_particle2.png');
     }
     create(){
         this.cursors=this.input.keyboard.createCursorKeys();
@@ -39,7 +40,7 @@ class startScene extends Phaser.Scene {
         this.titleSong = this.sound.add('titleSong');
         this.titleSong.play();
         this,this.titleSong.loop = true;
-        this.cometEmitter=this.add.particles('comet').createEmitter(this.cometConfig).start();
+        this.cometEmitter=this.add.particles('comet','comet2').createEmitter(this.cometConfig).start();
 //loops the title music 
 
     }
