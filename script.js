@@ -9,9 +9,9 @@ class startScene extends Phaser.Scene {
             speed:1500,
             lifespan:800,
             angle: {min: 0, max: 360 },
-            scale:{start:0.2,end:0.5},
+            scale:{start:4},
             blendMode:'SCREEN',
-            frequency:0.1,
+            frequency:10,
 
 
             emitZone:{
