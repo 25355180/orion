@@ -344,8 +344,6 @@ class level2 extends Phaser.Scene{
         this.count;
 
         this.cometConfig={
-            x: 400,
-            y: 300,
             speed: 150,
             tint: [ 0xffff00, 0xff0000, 0x00ff00, 0x0000ff ],
             lifespan: 2000,
@@ -354,7 +352,7 @@ class level2 extends Phaser.Scene{
 
             emitZone:{
                 type:'random',
-                source:new Phaser.Geom.Line(400,300,400,300),
+                source:new Phaser.Geom.Line(400,500,400,500),
             }
         };
     }
