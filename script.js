@@ -52,7 +52,7 @@ class GamesDevCW2 extends Phaser.Scene{
         this.score = 0;
         this.lives = 1;
         this.bullets=0;
-        
+
         this.cometConfig;
         this.cometEmitter;
         this.count;
@@ -106,7 +106,7 @@ preload (){
 
 
 create() {
-    this.cometEmitter=this.add.particles('comet').createEmitter(this.cometConfig).start();
+
     this.scene.get('UIScene').events.emit('resetLife');
     this.add.image(50, 60, 'background').setScale(2);
     this.shipSide = this.physics.add.staticGroup({
@@ -122,7 +122,7 @@ create() {
         setXY: { x: 50, y: 215, stepX: 300 },
     });
     //this.add.image(1780, 60, 'background').setScale(2);
-
+    this.cometEmitter=this.add.particles('comet').createEmitter(this.cometConfig).start();
     this.keycard=this.physics.add.sprite(535, 375, 'keycard').setScale(2);
     this.sheild=this.physics.add.sprite(1250, 275, 'sheild').setScale(2);
     this.raygun=this.physics.add.sprite(1450, 500, 'raygun').setScale(1.5);
