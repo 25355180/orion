@@ -1399,7 +1399,7 @@ const config = {
     parent: "game-container",
     height:600,
     transparency: true,
-    scene: [startScene,GamesDevCW2, level2, UIScene,level3,gameOver,finished,hard1,Particles],
+    scene: [startScene,GamesDevCW2, level2, UIScene,level3,gameOver,finished,hard1],
     physics:{
         default: 'arcade',
         arcade:{
