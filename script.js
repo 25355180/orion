@@ -52,6 +52,7 @@ class GamesDevCW2 extends Phaser.Scene{
         this.score = 0;
         this.lives = 1;
         this.bullets=0;
+        
         this.cometConfig;
         this.cometEmitter;
         this.count;
