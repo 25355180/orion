@@ -11,14 +11,14 @@ class startScene extends Phaser.Scene {
             angle: {min: 0, max: 360 },
             scale:{start:0.3,end:0.8},
             blendMode:'SCREEN',
-            frequency:10,
+            frequency:12,
             setScale:2,
             tint: [ 0xffff00, 0xff0f00, 0x00ff00, 0x0ff0ff ],
 
             emitZone:{
                 type:'random',
                 source:new Phaser.Geom.Line(0,0,1800,600),
-                quantity:1,
+
 
                 
             }
