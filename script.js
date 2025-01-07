@@ -385,7 +385,7 @@ preload (){
 
 
 create() {
-    this.cometEmitter=this.add.particles('comet2').createEmitter(this.cometConfig).start();
+
     this.add.image(50, 60, 'background').setScale(2);
     this.shipSide = this.physics.add.staticGroup({
         key: 'shipSide',
@@ -400,7 +400,7 @@ create() {
         setXY: { x: 50, y: 215, stepX: 300 },
     });
     //this.add.image(1780, 60, 'background').setScale(2);
-
+    this.cometEmitter=this.add.particles('comet2').createEmitter(this.cometConfig).start();
     this.keycard=this.physics.add.sprite(535, 375, 'keycard').setScale(2);
     this.sheild=this.physics.add.sprite(1250, 275, 'sheild').setScale(2);
     this.raygun=this.physics.add.sprite(1450, 500, 'raygun').setScale(1.5);
