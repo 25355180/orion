@@ -1,51 +1,6 @@
 class startScene extends Phaser.Scene {
     constructor(){
         super({ key: 'startScene', active: true });
-    }
-//this is the start scene
-//preload loads all the game assets
-    preload(){
-        this.load.image('titleScreen', 'titleScreen.png');
-        this.load.audio('titleSong', 'titleSong.mp3');
-    }
-    create(){
-        this.cursors=this.input.keyboard.createCursorKeys();
-        //creates keyboard input
-        this.add.image(600, 300, 'titleScreen').setScale(0.9);
-        this.text= this.add.text(300, 400, 'HIT SPACE TO START!', { fill: '#B5E61D' }).setScale(2);
-        this.text= this.add.text(300, 500, 'USE LEFT, RIGHT AND DOWN TO MOVE!', { fill: '#B5E61D' }).setScale(2);
-        this.text= this.add.text(300, 550, 'GRAVITY WILL DO THE REST!', { fill: '#B5E61D' }).setScale(2);
-        this.titleSong = this.sound.add('titleSong');
-        this.titleSong.play();
-        this,this.titleSong.loop = true;
-//loops the title music 
-
-    }
-    update(){
-        if (this.cursors.space.isDown){
-            this.level1();
-            //switches scenes when space is pressed
-        }
-    }
-    level1(GameScene){
-        //this.scene.get('GameScene').scene.start();
-        this.scene.start('GameScene');
-        this.scene.start('Particles');
-       // this.scene.stop('startScene');
-        this.titleSong.pause();
-        this,this.titleSong.loop = false;
-        //pauses the start scene song
-        //this.scene.switch('GameScene');
-        
-    };
-
-}
-
-class Particles extends Phaser.Scene 
-{
-
-    constructor() {
-        super('mainscene');
         this.cometConfig;
         this.cometEmitter;
         this.count;
@@ -65,21 +20,45 @@ class Particles extends Phaser.Scene
                 
             }
         };
-
-
     }
-
-    preload()
-    {
+//this is the start scene
+//preload loads all the game assets
+    preload(){
+        this.load.image('titleScreen', 'titleScreen.png');
+        this.load.audio('titleSong', 'titleSong.mp3');
         this.load.image('comet', 'comet_particle.png');
-
     }
-
-    create() 
-    {
+    create(){
+        this.cursors=this.input.keyboard.createCursorKeys();
+        //creates keyboard input
+        this.add.image(600, 300, 'titleScreen').setScale(0.9);
+        this.text= this.add.text(300, 400, 'HIT SPACE TO START!', { fill: '#B5E61D' }).setScale(2);
+        this.text= this.add.text(300, 500, 'USE LEFT, RIGHT AND DOWN TO MOVE!', { fill: '#B5E61D' }).setScale(2);
+        this.text= this.add.text(300, 550, 'GRAVITY WILL DO THE REST!', { fill: '#B5E61D' }).setScale(2);
+        this.titleSong = this.sound.add('titleSong');
+        this.titleSong.play();
+        this,this.titleSong.loop = true;
         this.cometEmitter=this.add.particles('comet').createEmitter(this.cometConfig).start();
+//loops the title music 
 
     }
+    update(){
+        if (this.cursors.space.isDown){
+            this.level1();
+            //switches scenes when space is pressed
+        }
+    }
+    level1(GameScene){
+        //this.scene.get('GameScene').scene.start();
+        this.scene.start('GameScene');
+       // this.scene.stop('startScene');
+        this.titleSong.pause();
+        this,this.titleSong.loop = false;
+        //pauses the start scene song
+        //this.scene.switch('GameScene');
+        
+    };
+
 }
 
 class GamesDevCW2 extends Phaser.Scene{
