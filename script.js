@@ -338,6 +338,24 @@ class level2 extends Phaser.Scene{
         this.score = 0;
         this.lives = 1;
         this.bullets=0;
+        this.cometConfig;
+        this.cometEmitter;
+        this.count;
+
+        this.cometConfig={
+            x: 400,
+            y: 300,
+            speed: 100,
+            tint: [ 0xffff00, 0xff0000, 0x00ff00, 0x0000ff ],
+            lifespan: 2000,
+            frequency: 50,
+            blendMode: 'ADD',
+
+            emitZone:{
+                type:'random',
+                source:new Phaser.Geom.Line(0,0,1800,600),
+            }
+        };
     }
 
 preload (){
@@ -361,10 +379,12 @@ preload (){
     this.load.image('alien3', 'alien3.png');
     this.load.image('ray', 'ray.png');
     this.load.image('dead1', 'gameOver.png');
+    this.load.image('comet2', 'comet_particle2.png');
 }
 
 
 create() {
+    this.cometEmitter=this.add.particles('comet2').createEmitter(this.cometConfig).start();
     this.add.image(50, 60, 'background').setScale(2);
     this.shipSide = this.physics.add.staticGroup({
         key: 'shipSide',
