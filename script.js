@@ -11,9 +11,9 @@ class startScene extends Phaser.Scene {
             angle: {min: 0, max: 360 },
             scale:{start:0.2,end:0.5},
             blendMode:'SCREEN',
-            frequency:1,
+            frequency:20,
             setScale:2,
-            tint: [ 0xffff00, 0xff0000, 0x00ff00, 0x0000ff ],
+            tint: [ 0xffff00, 0xff0f00, 0x00ff00, 0x0ff0ff ],
 
             emitZone:{
                 type:'random',
