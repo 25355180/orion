@@ -30,6 +30,7 @@ class startScene extends Phaser.Scene {
     level1(GameScene){
         //this.scene.get('GameScene').scene.start();
         this.scene.start('GameScene');
+        this.scene.start('Particles');
        // this.scene.stop('startScene');
         this.titleSong.pause();
         this,this.titleSong.loop = false;
