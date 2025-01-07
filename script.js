@@ -8,7 +8,7 @@ class startScene extends Phaser.Scene {
         this.cometConfig={
             speed:1500,
             lifespan:800,
-            angle: {min: 90, max: 90 },
+            angle: {min: 0, max: 360 },
             scale:{start:0.2,end:0.5},
             blendMode:'SCREEN',
             frequency:0.1,
