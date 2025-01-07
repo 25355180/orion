@@ -40,7 +40,7 @@ class startScene extends Phaser.Scene {
         this.titleSong = this.sound.add('titleSong');
         this.titleSong.play();
         this,this.titleSong.loop = true;
-        this.cometEmitter=this.add.particles['comet2','comet'].createEmitter(this.cometConfig).start();
+        this.cometEmitter=this.add.particles('comet2','comet').createEmitter(this.cometConfig).start();
 //loops the title music 
 
     }
