@@ -16,7 +16,7 @@ class startScene extends Phaser.Scene {
 
             emitZone:{
                 type:'random',
-                source:new Phaser.Geom.Line(0,0,1800,600),
+                source:new Phaser.Geom.Line(0,0,600,1800),
                 quantity:1,
                 
             }
