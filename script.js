@@ -346,10 +346,10 @@ class level2 extends Phaser.Scene{
         this.cometConfig={
             x: 400,
             y: 300,
-            speed: 100,
+            speed: 10,
             tint: [ 0xffff00, 0xff0000, 0x00ff00, 0x0000ff ],
             lifespan: 2000,
-            frequency: 50,
+            frequency: 70,
             blendMode: 'ADD',
 
             emitZone:{
