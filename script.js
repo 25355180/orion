@@ -13,11 +13,13 @@ class startScene extends Phaser.Scene {
             blendMode:'SCREEN',
             frequency:1,
             setScale:2,
+            tint: [ 0xffff00, 0xff0000, 0x00ff00, 0x0000ff ],
 
             emitZone:{
                 type:'random',
                 source:new Phaser.Geom.Line(0,0,1800,600),
                 quantity:1,
+
                 
             }
         };
@@ -40,7 +42,8 @@ class startScene extends Phaser.Scene {
         this.titleSong = this.sound.add('titleSong');
         this.titleSong.play();
         this,this.titleSong.loop = true;
-        this.cometEmitter=this.add.particles('comet2','comet').createEmitter(this.cometConfig).start();
+        this.cometEmitter=this.add.particles('comet').createEmitter(this.cometConfig).start();
+        
 //loops the title music 
 
     }
