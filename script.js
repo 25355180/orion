@@ -349,12 +349,12 @@ class level2 extends Phaser.Scene{
             speed: 150,
             tint: [ 0xffff00, 0xff0000, 0x00ff00, 0x0000ff ],
             lifespan: 2000,
-            frequency: 70,
+            frequency: 200,
             blendMode: 'ADD',
 
             emitZone:{
                 type:'random',
-                source:new Phaser.Geom.Line(0,0,1800,600),
+                source:new Phaser.Geom.Line(400,300,400,300),
             }
         };
     }
