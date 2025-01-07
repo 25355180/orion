@@ -13,6 +13,7 @@ class startScene extends Phaser.Scene {
             blendMode:'SCREEN',
             frequency:0.1,
 
+
             emitZone:{
                 type:'random',
                 source:new Phaser.Geom.Line(0,0,1800,600),
