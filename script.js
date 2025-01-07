@@ -39,6 +39,48 @@ class startScene extends Phaser.Scene {
     };
 
 }
+
+class Particles extends Phaser.Scene 
+{
+
+    constructor() {
+        super('mainscene');
+        this.cometConfig;
+        this.cometEmitter;
+        this.count;
+
+        this.cometConfig={
+            speed:1500,
+            lifespan:800,
+            angle: {min: 90, max: 90 },
+            scale:{start:0.2,end:0.5},
+            blendMode:'SCREEN',
+            frequency:0.1,
+
+            emitZone:{
+                type:'random',
+                source:new Phaser.Geom.Line(0,0,1067,0),
+                quantity:1,
+                
+            }
+        };
+
+
+    }
+
+    preload()
+    {
+        this.load.image('comet', 'comet_particle.png');
+
+    }
+
+    create() 
+    {
+        this.cometEmitter=this.add.particles('comet').createEmitter(this.cometConfig).start();
+
+    }
+}
+
 class GamesDevCW2 extends Phaser.Scene{
     constructor(){
         super({ key: 'GameScene' });
@@ -1377,7 +1419,7 @@ const config = {
     parent: "game-container",
     height:600,
     transparency: true,
-    scene: [startScene,GamesDevCW2, level2, UIScene,level3,gameOver,finished,hard1],
+    scene: [startScene,GamesDevCW2, level2, UIScene,level3,gameOver,finished,hard1,Particles],
     physics:{
         default: 'arcade',
         arcade:{
