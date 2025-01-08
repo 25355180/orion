@@ -63,7 +63,7 @@ class GamesDevCW2 extends Phaser.Scene{
             angle: {min: 0, max: 360 },
             scale:{start:0.3,end:0.8},
             blendMode:'ADD', 
-            frequency:10,
+            frequency:1,
             setScale:2,
             tint: [ 0xFFA000, 0xFF7518, 0xFFD400, 0xFFFFB7 ],
 
@@ -658,6 +658,23 @@ class level3 extends Phaser.Scene{
         this.lives = 1;
         this.bullets=0;
 
+        this.cometConfig;
+        this.cometEmitter;
+        this.count;
+
+        this.cometConfig={
+            speed: 250,
+            tint: [ 0x011203, 0x071d0d, 0x110222, 0x002100 ],
+            lifespan: 2000,
+            frequency: 1,
+            gravityY: 350,
+            blendMode: 'ADD',
+
+            emitZone:{
+                type:'random',
+                source:new Phaser.Geom.Line(700,500,700,500),
+            }
+        };
     }
     //add functions here
 //game config
@@ -683,6 +700,7 @@ preload (){
     this.load.image('alien3', 'alien3.png');
     this.load.image('ray', 'ray.png');
     this.load.image('dead1', 'gameOver.png');
+    this.load.image('comet2', 'comet_particle2.png');
 }
 
 
@@ -700,8 +718,8 @@ create() {
         repeat: 10,
         setXY: { x: 50, y: 215, stepX: 300 },
     });
-    //this.add.image(1780, 60, 'background').setScale(2);
-    //this.text= this.add.text(100, 300, 'How much oxygen do I have left?...', {fill:'#ffffff'});
+
+    this.cometEmitter=this.add.particles('comet2').createEmitter(this.cometConfig).start();
     this.keycard=this.physics.add.sprite(535, 375, 'keycard').setScale(2);
     this.sheild=this.physics.add.sprite(1150, 275, 'sheild').setScale(2);
     this.raygun=this.physics.add.sprite(1450, 500, 'raygun').setScale(1.5);
