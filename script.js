@@ -672,7 +672,7 @@ class level3 extends Phaser.Scene{
 
             emitZone:{
                 type:'random',
-                source:new Phaser.Geom.Line(700,500,700,500),
+                source:new Phaser.Geom.Line(700,200,700,200),
             }
         };
     }
