@@ -345,14 +345,14 @@ class level2 extends Phaser.Scene{
 
         this.cometConfig={
             speed: 250,
-            tint: [ 0xffff00, 0xff0000, 0x00ff00, 0x0000ff ],
+            tint: [ 0xff000f, 0xff0000, 0xff00f0, 0xfff000 ],
             lifespan: 2000,
             frequency: 1,
             blendMode: 'ADD',
 
             emitZone:{
                 type:'random',
-                source:new Phaser.Geom.Curve(400,500,400,500),
+                source:new Phaser.Geom.Line(400,500,400,500),
             }
         };
     }
