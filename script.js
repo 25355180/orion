@@ -62,7 +62,7 @@ class GamesDevCW2 extends Phaser.Scene{
             lifespan:600,
             angle: {min: 0, max: 360 },
             scale:{start:0.3,end:0.8},
-            blendMode:'ADD',
+            blendMode:'ADD', 
             frequency:12,
             setScale:2,
             tint: [ 0xffff00, 0xffff0f, 0xfffff0, 0xfff0ff ],
@@ -74,7 +74,6 @@ class GamesDevCW2 extends Phaser.Scene{
         };
 //sets variables
     }
-
 //game config
 
 preload (){
