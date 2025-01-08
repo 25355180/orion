@@ -352,7 +352,7 @@ class level2 extends Phaser.Scene{
 
             emitZone:{
                 type:'random',
-                source:new Phaser.Geom.Line(400,500,400,500),
+                source:new Phaser.Geom.Curve(400,500,400,500),
             }
         };
     }
