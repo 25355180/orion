@@ -949,6 +949,7 @@ collectkeycard(player, keycard, laser, score)
     this. laser. setPosition (0, 312); 
     this.laser.refreshBody();
     this.scene.get('UIScene').events.emit('addScore');
+    this.text= this.add.text(200, 570, 'Achievement unlocked: Escape artist', {fill:'#ffffff'});
 
 };
 collectSheild(player, sheild)
