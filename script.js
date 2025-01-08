@@ -69,7 +69,7 @@ class GamesDevCW2 extends Phaser.Scene{
 
             emitZone:{
                 type:'random',
-                source:new Phaser.Geom.Line(0,0,1800,600),
+                source:new Phaser.Geom.Line(0,1800,0,600),
             }
         };
 //sets variables
@@ -351,7 +351,7 @@ class level2 extends Phaser.Scene{
 
             emitZone:{
                 type:'random',
-                source:new Phaser.Geom.Line(400,500,400,500),
+                source:new Phaser.Geom.Line(700,500,700,500),
             }
         };
     }
