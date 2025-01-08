@@ -65,7 +65,7 @@ class GamesDevCW2 extends Phaser.Scene{
             blendMode:'ADD', 
             frequency:10,
             setScale:2,
-            tint: [ 0xfff000, 0xfff00f, 0xfff0f0, 0xfff0ff ],
+            tint: [ 0xFFA000, 0xFF7518, 0xFFD400, 0xFFFFB7 ],
 
             emitZone:{
                 type:'random',
