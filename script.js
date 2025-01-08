@@ -58,7 +58,7 @@ class GamesDevCW2 extends Phaser.Scene{
         this.count;
 
         this.cometConfig={
-            speed:100,
+            speed:50,
             lifespan:600,
             angle: {min: 0, max: 360 },
             scale:{start:0.3,end:0.8},
