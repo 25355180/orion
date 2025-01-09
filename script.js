@@ -353,9 +353,10 @@ level2(){
 };
 
 class level2 extends Phaser.Scene{
+    //level 2 scene
     constructor(){
         super({ key: 'level2' });
-        //class variables go here
+        //names the scene
         var player= player;
         var text=text;
         var anims=anims;
@@ -365,7 +366,8 @@ class level2 extends Phaser.Scene{
         this.cometConfig;
         this.cometEmitter;
         this.count;
-
+//sets variables
+//sets particle emitter configuration
         this.cometConfig={
             speed: 250,
             tint: [ 0x010203, 0x070d0d, 0x110022, 0x000000 ],
@@ -376,11 +378,13 @@ class level2 extends Phaser.Scene{
             emitZone:{
                 type:'random',
                 source:new Phaser.Geom.Line(700,500,700,500),
+                //sets emit zone
             }
         };
     }
 
 preload (){
+    //preloads assets into memory
     this.load.spritesheet('orion', 'orion.png', {frameWidth: 32, frameHeight:33});
     this.load.image('background', 'space.png');
     this.load.image('keycard', 'key.png');
@@ -408,20 +412,24 @@ preload (){
 create() {
 
     this.add.image(50, 60, 'background').setScale(2);
+    //sets background
     this.shipSide = this.physics.add.staticGroup({
         key: 'shipSide',
         setScale:{x:2,y:2},
         repeat: 10,
         setXY: { x: 50, y: 415, stepX: 300 },
     });
+    
     this.shipSide2 = this.physics.add.staticGroup({
         key: 'shipSide',
         setScale:{x:2,y:2},
         repeat: 10,
         setXY: { x: 50, y: 215, stepX: 300 },
     });
-    //this.add.image(1780, 60, 'background').setScale(2);
+    //background pipes groups
+//start particcle emitter
     this.cometEmitter=this.add.particles('comet2').createEmitter(this.cometConfig).start();
+    //sets sprites position and scale
     this.keycard=this.physics.add.sprite(535, 375, 'keycard').setScale(2);
     this.sheild=this.physics.add.sprite(1250, 275, 'sheild').setScale(2);
     this.raygun=this.physics.add.sprite(1450, 500, 'raygun').setScale(1.5);
@@ -433,14 +441,14 @@ create() {
     this.alien6=this.physics.add.staticSprite(400, 200, 'alien3').setScale(2);
     this.laser = this.physics.add.staticSprite(1610, 312, 'laser');
     this.laser1 = this.physics.add.staticSprite(0, 312, 'laser');
-
+//sets player sprite
     this.player=this.physics.add.sprite(100,450, 'orion').setScale(2);
     this.player.setCollideWorldBounds(true);
-
+//player interacts with world
 
     this.player.setGravityY(400);
-
-//audio
+//set gravity
+//plays audio
 this.levelStart = this.sound.add('levelStart');
 this.levelStart.play();
 
@@ -455,7 +463,7 @@ this.levelStart.once('complete', () => {
     this.pipeSmallUp = this.physics.add.staticGroup();
     this.pipeSmallSide = this.physics.add.staticGroup();
     this.pipeSide = this.physics.add.staticGroup();
-
+//name groups
     
     //big up pipes
     this.pipeUp.create(500, 350, 'pipeBigUp').setScale(2).refreshBody();
@@ -474,7 +482,8 @@ this.levelStart.once('complete', () => {
 
 
     this.cursors=this.input.keyboard.createCursorKeys();
-
+//creates keyboard input
+//sets overlap conditions
     this.physics.add.overlap(this.player, this.keycard,  this.collectkeycard, null, this);
     this.physics.add.overlap(this.player, this.sheild,  this.collectSheild, null, this);
     this.physics.add.overlap(this.player, this.raygun,  this.collectRaygun, null, this);
@@ -507,8 +516,8 @@ this.levelStart.once('complete', () => {
         setScale:{x:2,y:2},
         setXY: { x: 0, y: 530, stepX: 244 },
     });
-
-
+//set floor
+//set animations
     this.anims.create({
         key:'right',
         frames: this.anims.generateFrameNumbers('orion',{start:0, end:11}),
@@ -538,6 +547,7 @@ this.levelStart.once('complete', () => {
 
 }
 update(){
+    //set colliders
     this.physics.add.collider(this.player, this.keycard);
     this.physics.add.collider(this.player, this.sheild);
     this.physics.add.collider(this.player, this.raygun);
@@ -556,7 +566,7 @@ update(){
     this.physics.add.collider(this.player, this.alien5);
     this.physics.add.collider(this.player, this.alien6);
     this.physics.add.collider(this.player, this.laser1);
-
+//plays animation when conditions met
     if (this.cursors.left.isDown){
         this.player.setVelocityX(-160);
         this.player.anims.play('left',true);
@@ -578,7 +588,7 @@ update(){
     }
 
 
-
+//set alien positions and movement
     this.alien1.x += 2;
     this.alien1.refreshBody();
 
@@ -632,49 +642,65 @@ update(){
 
 }
 
+//collect keycard function
 collectkeycard(player, keycard, laser, score)
 {
     keycard.disableBody(true, true);
     keycard.destroy();
+    //destroys keycard
     this.collect=true;
     this.text= this.add.text(30, 30, 'Keycard collected!', {fill:'#ffffff'});
+    //moves laser away from door
     this. laser. setPosition (0, 312); 
     this.laser.refreshBody();
-    this.events.emit('addScore');
-
+    //adds points to score
+    this.scene.get('UIScene').events.emit('addScore');
 };
+//collect sheild function
 collectSheild(player, sheild)
 {
     sheild.disableBody(true, true);
     sheild.destroy();
+    //destroys sheild
     this.text= this.add.text(250, 30, 'Sheild collected!', {fill:'#ffffff'});
+    //adds points to score and another life
     this.scene.get('UIScene').events.emit('addLife');
     this.scene.get('UIScene').events.emit('addScore');
 
 };
+//collect raygun function
 collectRaygun(player, raygun)
 {
     raygun.disableBody(true, true);
     raygun.destroy();
+    //destroys raygun
     this.text= this.add.text(450, 30, 'Raygun collected!', {fill:'#ffffff'});
-    this.scene.get('UIScene').events.emit('addBullet');
+        //adds points to score and bullets
     this.scene.get('UIScene').events.emit('addScore');
+    this.scene.get('UIScene').events.emit('addBullet');
 
 };
+//player hurt function
 ouch(player, alien1,alien2,alien3)
 {
     this.text= this.add.text(750, 30, 'Ouch!', {fill:'#ffffff'});
     this.scene.get('UIScene').events.emit('takeLife');
+    //takes a life
+    this.disableBody;
+
 };
 level3(){
+    //starts level 3
     this.scene.start('level3');
 };
 };
 
 class level3 extends Phaser.Scene{
+    //level 3
     constructor(){
+        //sets name
         super({ key: 'level3' });
-        //class variables go here
+        //set variables
         var player= player;
         var text=text;
         var anims=anims;
@@ -685,7 +711,7 @@ class level3 extends Phaser.Scene{
         this.cometConfig;
         this.cometEmitter;
         this.count;
-
+//sets particle emitter config
         this.cometConfig={
             speed: 250,
             tint: [ 0x011203, 0x071d0d, 0x110222, 0x002100 ],
@@ -693,17 +719,15 @@ class level3 extends Phaser.Scene{
             frequency: 1,
             gravityY: 350,
             blendMode: 'ADD',
-
+//sets emit zone properties
             emitZone:{
                 type:'random',
                 source:new Phaser.Geom.Line(700,200,700,200),
             }
         };
     }
-    //add functions here
-//game config
-
 preload (){
+    //preload assets into memory
     this.load.spritesheet('orion', 'orion.png', {frameWidth: 32, frameHeight:33});
     this.load.image('background', 'space.png');
     this.load.image('keycard', 'key.png');
@@ -726,10 +750,9 @@ preload (){
     this.load.image('dead1', 'gameOver.png');
     this.load.image('comet2', 'comet_particle2.png');
 }
-
-
 create() {
     this.add.image(50, 60, 'background').setScale(2);
+    //set background image
     this.shipSide = this.physics.add.staticGroup({
         key: 'shipSide',
         setScale:{x:2,y:2},
@@ -742,8 +765,10 @@ create() {
         repeat: 10,
         setXY: { x: 50, y: 215, stepX: 300 },
     });
-
+    //create groups
+//start commet emitter
     this.cometEmitter=this.add.particles('comet2').createEmitter(this.cometConfig).start();
+    //set sprites positions
     this.keycard=this.physics.add.sprite(535, 375, 'keycard').setScale(2);
     this.sheild=this.physics.add.sprite(1150, 275, 'sheild').setScale(2);
     this.raygun=this.physics.add.sprite(1450, 500, 'raygun').setScale(1.5);
@@ -755,14 +780,14 @@ create() {
     this.alien6=this.physics.add.staticSprite(1000, 200, 'alien3').setScale(2);
     this.laser = this.physics.add.staticSprite(1610, 312, 'laser');
     this.laser1 = this.physics.add.staticSprite(0, 312, 'laser');
-
+//set player position
     this.player=this.physics.add.sprite(100,450, 'orion').setScale(2);
+    //player interacts with world
     this.player.setCollideWorldBounds(true);
-
-
+//set gravity
     this.player.setGravityY(400);
 
-//audio
+//audio plays
 this.levelStart = this.sound.add('levelStart');
 this.levelStart.play();
 
@@ -772,7 +797,7 @@ this.levelStart.once('complete', () => {
     this.levelLoop.loop = true;
     this.levelLoop.play();
 });
-
+//names groups
     this.pipeUp = this.physics.add.staticGroup();
     this.pipeSmallUp = this.physics.add.staticGroup();
     this.pipeSmallSide = this.physics.add.staticGroup();
@@ -805,9 +830,10 @@ this.levelStart.once('complete', () => {
     //door
     this.door=this.physics.add.sprite(1700, 320, 'door').setScale(2);
 
-
+//create keyboard input
     this.cursors=this.input.keyboard.createCursorKeys();
 
+    //overlaps
     this.physics.add.overlap(this.player, this.keycard,  this.collectkeycard, null, this);
     this.physics.add.overlap(this.player, this.sheild,  this.collectSheild, null, this);
     this.physics.add.overlap(this.player, this.raygun,  this.collectRaygun, null, this);
@@ -824,10 +850,7 @@ this.levelStart.once('complete', () => {
     this.cam.setZoom(1);
     this.cameras.main.setBounds(0, 0, 1780,600);
     this.cam.startFollow(this.player, false, 50, 50);
-
-
-
-
+//sets floor
     this.floor = this.physics.add.staticGroup({
         collideWorldBounds: true,
         key: 'floor',
@@ -843,7 +866,7 @@ this.levelStart.once('complete', () => {
         setXY: { x: 0, y: 530, stepX: 244 },
     });
 
-
+//create animations
     this.anims.create({
         key:'right',
         frames: this.anims.generateFrameNumbers('orion',{start:0, end:11}),
@@ -873,6 +896,7 @@ this.levelStart.once('complete', () => {
 
 }
 update(){
+    //sets colliders
     this.physics.add.collider(this.player, this.keycard);
     this.physics.add.collider(this.player, this.sheild);
     this.physics.add.collider(this.player, this.raygun);
@@ -891,7 +915,7 @@ update(){
     this.physics.add.collider(this.player, this.alien5);
     this.physics.add.collider(this.player, this.alien6);
     this.physics.add.collider(this.player, this.laser1);
-
+//plays animation when condition met
     if (this.cursors.left.isDown){
         this.player.setVelocityX(-160);
         this.player.anims.play('left',true);
@@ -964,54 +988,65 @@ update(){
 
 }
 
+//collect keycard function
 collectkeycard(player, keycard, laser, score)
 {
     keycard.disableBody(true, true);
     keycard.destroy();
+    //destroys keycard
     this.collect=true;
     this.text= this.add.text(30, 30, 'Keycard collected!', {fill:'#ffffff'});
+    //moves laser away from door
     this. laser. setPosition (0, 312); 
     this.laser.refreshBody();
+    //adds points to score
     this.scene.get('UIScene').events.emit('addScore');
-    this.text= this.add.text(200, 570, 'Achievement unlocked: Escape artist', {fill:'#ffffff'});
-
 };
+//collect sheild function
 collectSheild(player, sheild)
 {
     sheild.disableBody(true, true);
     sheild.destroy();
+    //destroys sheild
     this.text= this.add.text(250, 30, 'Sheild collected!', {fill:'#ffffff'});
+    //adds points to score and another life
     this.scene.get('UIScene').events.emit('addLife');
     this.scene.get('UIScene').events.emit('addScore');
 
 };
+//collect raygun function
 collectRaygun(player, raygun)
 {
     raygun.disableBody(true, true);
     raygun.destroy();
+    //destroys raygun
     this.text= this.add.text(450, 30, 'Raygun collected!', {fill:'#ffffff'});
+        //adds points to score and bullets
     this.scene.get('UIScene').events.emit('addScore');
     this.scene.get('UIScene').events.emit('addBullet');
 
 };
-ouch(player, alien1,alien2,alien3,alien4,alien5,alien6)
+//player hurt function
+ouch(player, alien1,alien2,alien3)
 {
     this.text= this.add.text(750, 30, 'Ouch!', {fill:'#ffffff'});
     this.scene.get('UIScene').events.emit('takeLife');
+    //takes a life
+    this.disableBody;
 
 };
 level4(){
+    //start finished scene
     this.scene.switch('finished');
     this.scene.stop('level3');
-
 };
 }
-
-
 
 class UIScene extends Phaser.Scene {
     constructor() {
         super({ key: 'UIScene', active: true });
+        //names scene
+        //set variables
         this.score = 0;
         this.lives = 1;
         this.bullets=0;
@@ -1022,23 +1057,23 @@ class UIScene extends Phaser.Scene {
         const livesText = this.add.text(150, 10, `Lives: ${this.lives}`, { fill: '#ffffff' });
         const bulletsText = this.add.text(330, 10, `Bullets: ${this.bullets}`, { fill: '#ffffff' });
         const ourGame = this.scene.get('UIScene');
-    
+    //set game info as constants
         ourGame.events.on('addScore', function () {
             this.score += 100;
             info.setText(`Score: ${this.score}`);
         }, this);
-
+//calculates game score and sets as text
         ourGame.events.on('addBullet', function () {
             this.bullets += 10;
             bulletsText.setText(`Bullets: ${this.bullets}`);
         }, this);
-    
+    //calculates bullet count and sets as text
         ourGame.events.on('addLife', function () {
             this.lives += 1;
             livesText.setText(`Lives: ${this.lives}`);
             this.add.text(100, 20, 'Life collected');
         }, this);
-
+//calculates life count and sets as text
         ourGame.events.on('takeLife', function () {
             if (this.lives > 0) {
                 this.lives -= 1;
@@ -1046,21 +1081,22 @@ class UIScene extends Phaser.Scene {
                 this.add.text(200, 20, 'OUCH!');
             }
         }, this);
-
+//takes a life
+//reset life count
         ourGame.events.on('resetLife', function () {
             this.lives = 1;
             livesText.setText(`Lives: ${this.lives}`);
         }, this);
-
+//resets bullet count
         ourGame.events.on('resetBullets', function () {
             this.bullets = 0;
             bulletsText.setText(`Bullets: ${this.bullets}`);
         }, this);
-
+//starts timer
         this.startTimer();
 
     }
-
+    //timer function
     startTimer() {
         this.startTime = new Date();
         this.totalTime = 0; 
@@ -1077,6 +1113,7 @@ class UIScene extends Phaser.Scene {
     }
 //timer tutorial from here: https://www.joshmorony.com/how-to-create-an-accurate-timer-for-phaser-games/
     updateTimer() {
+        //updates timer count
         this.timeElapsed++;
         const remainingTime = this.totalTime + this.timeElapsed;
 
@@ -1095,6 +1132,7 @@ class UIScene extends Phaser.Scene {
 
     update() {
         if (this.lives <= 0) {
+            //sets what happens on death
             this.gameTimer.remove(true);
             this.timerText.destroy();
             this.scene.switch('gameOver');
@@ -1104,23 +1142,28 @@ class UIScene extends Phaser.Scene {
 }
 
 class gameOver extends Phaser.Scene {
+    //game over scene
     constructor(){
+        //names scene
         super({ key: 'gameOver' });
         this.lives = 1;
+        //sets lives
     }
 
     preload(){
+        //preloads asset into memory
         this.load.image('dead1', 'gameOver.png');
     }
     create(){
         this.cursors=this.input.keyboard.createCursorKeys();
+        //create keyboard input
         this.add.image(600, 300, 'dead1').setScale(0.9);
+        //add background
         this.text= this.add.text(300, 400, 'YOU DIED! HIT SPACE TO RETRY!', { fill: '#B5E61D' }).setScale(2);
-
-
-
+//instruction
     }
     update(){
+        //restarts game if space pressed
         if (this.cursors.space.isDown){
             this.scene.get('UIScene').events.emit('resetLife');
             this.scene.get('UIScene').events.emit('resetBullets');
@@ -1128,64 +1171,65 @@ class gameOver extends Phaser.Scene {
         }
     }
     restart(GameScene){
-
+//restart game function
         this.scene.start('GameScene');
         this.scene.start('UIScene');
         this.scene.stop('gameOver');
         //this.scene.switch('GameScene');
-        
     };
-    
-
 };
 class finished extends Phaser.Scene {
     constructor(){
+       // names scene
         super({ key: 'finished' });
         this.lives = 1;
     }
 
     preload(){
+        //load asset
         this.load.image('end', 'endScreen.png');
     }
     create(){
         this.cursors=this.input.keyboard.createCursorKeys();
+        //keyboard input
         this.add.image(600, 300, 'end').setScale(1.5);
+        //set ending image
         this.text= this.add.text(100, 400, 'YOU ESCAPED! WELL DONE!', { fill: '#B5E61D' }).setScale(2);
         this.text= this.add.text(100, 500, 'PRESS SPACE TO PLAY AGAIN!', { fill: '#B5E61D' }).setScale(2);
-
-
-
-
+//set background text
     }
     update(){
         if (this.cursors.space.isDown){
             this.scene.get('UIScene').events.emit('resetLife');
             this.restart();
+            //if space is down restart game
         }
     }
     restart(GameScene){
-
+//load hard 1 scene
         this.scene.start('hard1');
         this.scene.start('UIScene');
         this.scene.stop('finished');
         //this.scene.switch('GameScene');
-        
     };
 }
 
 class hard1 extends Phaser.Scene{
+    //hard mode
     constructor(){
         super({ key: 'hard1' });
-        //class variables go here
+        //names scene
         var player= player;
         var text=text;
         var anims=anims;
         this.score = 0;
         this.lives = 1;
         this.bullets=0;
+        //sets variables
     }
 
 preload (){
+    //preloads assets into memory
     this.load.spritesheet('orion', 'orion.png', {frameWidth: 32, frameHeight:33});
     this.load.image('background', 'space.png');
     this.load.image('keycard', 'key.png');
@@ -1205,10 +1249,10 @@ preload (){
     this.load.image('ray', 'ray.png');
     this.load.image('dead1', 'gameOver.png');
 }
-
-
 create() {
+    //add background
     this.add.image(50, 60, 'background').setScale(2);
+    //create groups
     this.shipSide = this.physics.add.staticGroup({
         key: 'shipSide',
         setScale:{x:2,y:2},
@@ -1221,10 +1265,8 @@ create() {
         repeat: 10,
         setXY: { x: 50, y: 215, stepX: 300 },
     });
-    //this.add.image(1780, 60, 'background').setScale(2);
-
+//set sprite positions
     this.keycard=this.physics.add.sprite(535, 375, 'keycard').setScale(2);
-
     this.alien1=this.physics.add.staticSprite(1000, 400, 'alien1').setScale(2);
     this.alien2=this.physics.add.staticSprite(520, 240, 'alien2').setScale(2);
     this.alien3=this.physics.add.staticSprite(1400, 200, 'alien3').setScale(2);
@@ -1233,14 +1275,14 @@ create() {
     this.alien6=this.physics.add.staticSprite(400, 200, 'alien3').setScale(2);
     this.laser = this.physics.add.staticSprite(1610, 312, 'laser');
     this.laser1 = this.physics.add.staticSprite(0, 312, 'laser');
-
+//set player character
     this.player=this.physics.add.sprite(100,450, 'orion').setScale(2);
     this.player.setCollideWorldBounds(true);
-
-
+//player collides with the world
+//sets player gravity
     this.player.setGravityY(400);
 
-//audio
+//audio plays
 this.levelStart = this.sound.add('levelStart');
 this.levelStart.play();
 
@@ -1250,7 +1292,7 @@ this.levelStart.once('complete', () => {
     this.levelLoop.loop = true;
     this.levelLoop.play();
 });
-
+//name groups
     this.pipeUp = this.physics.add.staticGroup();
     this.pipeSmallUp = this.physics.add.staticGroup();
     this.pipeSmallSide = this.physics.add.staticGroup();
@@ -1272,9 +1314,9 @@ this.levelStart.once('complete', () => {
     //door
     this.door=this.physics.add.sprite(1700, 320, 'door').setScale(2);
 
-
+//create keyboard input
     this.cursors=this.input.keyboard.createCursorKeys();
-
+//overlaps
     this.physics.add.overlap(this.player, this.keycard,  this.collectkeycard, null, this);
     this.physics.add.overlap(this.player, this.sheild,  this.collectSheild, null, this);
     this.physics.add.overlap(this.player, this.raygun,  this.collectRaygun, null, this);
@@ -1292,7 +1334,7 @@ this.levelStart.once('complete', () => {
     this.cameras.main.setBounds(0, 0, 1780,600);
     this.cam.startFollow(this.player, false, 50, 50);
 //sets game camera
-
+//sets game floor
     this.floor = this.physics.add.staticGroup({
         collideWorldBounds: true,
         key: 'floor',
@@ -1308,7 +1350,7 @@ this.levelStart.once('complete', () => {
         setXY: { x: 0, y: 530, stepX: 244 },
     });
 
-
+//create animations
     this.anims.create({
         key:'right',
         frames: this.anims.generateFrameNumbers('orion',{start:0, end:11}),
@@ -1338,6 +1380,7 @@ this.levelStart.once('complete', () => {
 
 }
 update(){
+    //set colliders
     this.physics.add.collider(this.player, this.keycard);
     this.physics.add.collider(this.player, this.sheild);
     this.physics.add.collider(this.player, this.raygun);
@@ -1356,7 +1399,7 @@ update(){
     this.physics.add.collider(this.player, this.alien5);
     this.physics.add.collider(this.player, this.alien6);
     this.physics.add.collider(this.player, this.laser1);
-
+//play animation if condition is met
     if (this.cursors.left.isDown){
         this.player.setVelocityX(-160);
         this.player.anims.play('left',true);
@@ -1364,21 +1407,17 @@ update(){
     else if (this.cursors.right.isDown){
         this.player.setVelocityX(160);
         this.player.anims.play('right',true);
-
     }
     else if (this.cursors.down.isDown){
         this.player.setVelocityY(260);
         this.player.anims.play('jump',true);
-
     }
     else{
         this.player.setVelocityX(0);
         this.player.setVelocityY(-400);
         this.player.anims.play('idle');
     }
-
-
-
+//set alien movements
     this.alien1.x += 3;
     this.alien1.refreshBody();
 
@@ -1397,7 +1436,6 @@ update(){
         }
         this.alien3.y += 3;
         this.alien3.refreshBody();
-
         if (this.alien3.y > 500)
             {
                 this.alien3.y = -50;
@@ -1405,7 +1443,6 @@ update(){
             }
         this.alien4.y += 3;
         this.alien4.refreshBody();
-
         if (this.alien4.y > 550)
             {
                 this.alien4.y = -50;
@@ -1413,7 +1450,6 @@ update(){
             }
         this.alien5.y += 3;
         this.alien5.refreshBody();
-
         if (this.alien5.y > 300)
             {
                 this.alien5.y = -30;
@@ -1421,40 +1457,40 @@ update(){
             }
         this.alien6.x += 3;
         this.alien6.refreshBody();
-
         if (this.alien6.x > 350)
             {
                 this.alien6.x = -350;
                 this.alien6.refreshBody();
             }
-                
 //makes aliens move around
-
 }
-
+//collect keycard function
 collectkeycard(player, keycard, laser, score)
 {
     keycard.disableBody(true, true);
     keycard.destroy();
+    //destroys keycard
     this.collect=true;
     this.text= this.add.text(30, 30, 'Keycard collected!', {fill:'#ffffff'});
+    //moves laser away from door
     this. laser. setPosition (0, 312); 
     this.laser.refreshBody();
     this.events.emit('addScore');
-
+//adds to score
 };
-
+//player hurt function
 ouch(player, alien1,alien2,alien3)
 {
     this.text= this.add.text(750, 30, 'Ouch!', {fill:'#ffffff'});
     this.scene.get('UIScene').events.emit('takeLife');
+    //hurts player
 };
 level3(){
+    //starts finished scene
     this.scene.start('finished');
 };
 };
-
-
+//game config
 const config = {
     type:Phaser.AUTO,
     width:1800,
@@ -1469,5 +1505,4 @@ const config = {
         }
     }
 };
-
 const game = new Phaser.Game(config);
